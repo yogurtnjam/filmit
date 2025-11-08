@@ -300,7 +300,7 @@ export const LandingPage = () => {
             </div>
           </div>
           <div className="text-center text-sm text-muted-foreground mt-8 font-sans">
-            © 2025 ContentFlow. Built for creators, by creators.
+            © 2025 Trendle. Built for creators, by creators.
           </div>
         </div>
       </footer>
