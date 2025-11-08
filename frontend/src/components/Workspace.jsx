@@ -152,9 +152,14 @@ export const Workspace = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-sky relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-sky relative overflow-hidden gradient-bg-dynamic">
+      {/* Dynamic gradient orbs */}
+      <div className="gradient-orb-1"></div>
+      <div className="gradient-orb-2"></div>
+      <div className="gradient-orb-3"></div>
+      
       {/* Floating decorative stickers */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
         <div className="floating-sticker top-20 left-[8%] text-5xl animate-float" style={{ animationDelay: '0s' }}>✨</div>
         <div className="floating-sticker top-32 right-[12%] text-4xl animate-float" style={{ animationDelay: '1.5s' }}>🎬</div>
         <div className="floating-sticker bottom-32 left-[15%] text-4xl animate-float" style={{ animationDelay: '3s' }}>🚀</div>
