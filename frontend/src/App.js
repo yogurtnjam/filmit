@@ -3,6 +3,7 @@ import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import { LoginPage } from "./components/LoginPage";
+import { LandingPage } from "./components/LandingPage";
 import { Toaster } from "./components/ui/sonner";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -22,7 +23,7 @@ const Home = () => {
     helloWorldApi();
   }, []);
 
-  return <LoginPage />;
+  return <LandingPage />;
 };
 
 function App() {
@@ -31,9 +32,8 @@ function App() {
       <Toaster position="top-right" richColors />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
     </div>
