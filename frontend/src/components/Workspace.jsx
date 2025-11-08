@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { Textarea } from './ui/textarea';
 import { Badge } from './ui/badge';
 import { Avatar, AvatarFallback } from './ui/avatar';
-import { Sparkles, Upload, X, Send, Video, Image as ImageIcon, FileText, Paperclip, TrendingUp, Wand2, Zap } from 'lucide-react';
+import { Sparkles, Upload, X, Send, Video, Image as ImageIcon, FileText, Paperclip, TrendingUp, Wand2, Zap, Rocket, Target } from 'lucide-react';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 
@@ -23,11 +23,20 @@ export const Workspace = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const fileInputRef = useRef(null);
   const textareaRef = useRef(null);
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const quickPrompts = [
     { icon: <TrendingUp className="w-4 h-4" />, text: 'Analyze trending formats', color: 'bg-primary/10 text-primary border-primary/20' },
     { icon: <Wand2 className="w-4 h-4" />, text: 'Suggest hooks for this video', color: 'bg-secondary/10 text-secondary border-secondary/20' },
-    { icon: <Zap className="w-4 h-4" />, text: 'Generate captions & hashtags', color: 'bg-accent/10 text-foreground border-accent/30' },
+    { icon: <Zap className="w-4 h-4" />, text: 'Generate captions & hashtags', color: 'bg-accent/20 text-foreground border-accent/30' },
   ];
 
   const handleFileSelect = (e) => {
@@ -57,7 +66,7 @@ export const Workspace = () => {
     }));
 
     setUploadedFiles(prev => [...prev, ...newFiles]);
-    toast.success(`${newFiles.length} file(s) uploaded successfully`);
+    toast.success(`${newFiles.length} file(s) uploaded! 🎉`);
   };
 
   const handleDragOver = (e) => {
@@ -105,7 +114,7 @@ export const Workspace = () => {
       const aiResponse = generateMockResponse(userMessage);
       setMessages(prev => [...prev, aiResponse]);
       setIsProcessing(false);
-      toast.success('Analysis complete!', { description: 'Check out my suggestions below.' });
+      toast.success('Analysis complete! 🎯', { description: 'Check out my suggestions below.' });
     }, 2000);
   };
 
@@ -143,19 +152,29 @@ export const Workspace = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-sky">
+    <div className="min-h-screen bg-gradient-sky relative overflow-hidden">
+      {/* Floating decorative stickers */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="floating-sticker top-20 left-[8%] text-5xl animate-float" style={{ animationDelay: '0s' }}>✨</div>
+        <div className="floating-sticker top-32 right-[12%] text-4xl animate-float" style={{ animationDelay: '1.5s' }}>🎬</div>
+        <div className="floating-sticker bottom-32 left-[15%] text-4xl animate-float" style={{ animationDelay: '3s' }}>🚀</div>
+        <div className="floating-sticker top-[45%] right-[20%] text-3xl animate-float" style={{ animationDelay: '2s' }}>💡</div>
+        <div className="floating-sticker bottom-24 right-[8%] text-4xl animate-float" style={{ animationDelay: '2.5s' }}>⚡</div>
+        <div className="floating-sticker top-[60%] left-[5%] text-3xl animate-float" style={{ animationDelay: '1s' }}>🎯</div>
+      </div>
+
       {/* Navigation */}
       <nav className="border-b border-border/50 bg-background/80 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <button onClick={() => navigate('/')} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-              <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center shadow-sm">
                 <Video className="w-6 h-6 text-primary-foreground" />
               </div>
               <span className="text-xl font-display font-bold text-foreground">ContentFlow</span>
             </button>
             <div className="flex items-center gap-4">
-              <Badge variant="secondary" className="hidden sm:flex font-sans">
+              <Badge className="hidden sm:flex bg-accent/20 text-foreground border-accent/30 hover:bg-accent/30 font-sans">
                 <Sparkles className="w-3 h-3 mr-1" />
                 AI Workspace
               </Badge>
@@ -168,18 +187,19 @@ export const Workspace = () => {
       </nav>
 
       {/* Main Content */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
         <div className="space-y-6">
           {/* Welcome Card */}
-          <Card className="border-border/50 shadow-lg bg-card/95 backdrop-blur-sm animate-slide-up">
-            <CardContent className="pt-6">
+          <Card className="border-border/50 shadow-xl bg-card/95 backdrop-blur-sm animate-slide-up relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl"></div>
+            <CardContent className="pt-6 relative">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center flex-shrink-0">
-                  <Sparkles className="w-6 h-6 text-primary-foreground" />
+                <div className="w-14 h-14 rounded-xl bg-gradient-primary flex items-center justify-center flex-shrink-0 shadow-md">
+                  <Sparkles className="w-7 h-7 text-primary-foreground" />
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-2xl font-display font-bold text-foreground mb-2">Your AI Content Studio</h2>
-                  <p className="text-muted-foreground leading-relaxed font-sans">
+                  <h2 className="text-3xl font-display font-bold text-foreground mb-2">Your AI Content Studio</h2>
+                  <p className="text-muted-foreground leading-relaxed text-lg font-sans">
                     Upload your content and I'll analyze it against trending formats, suggest improvements, and help you create viral-ready posts.
                   </p>
                 </div>
@@ -192,7 +212,7 @@ export const Workspace = () => {
             {messages.map((message, index) => (
               <div key={index} className={`flex gap-3 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 {message.role === 'assistant' && (
-                  <Avatar className="w-9 h-9 border-2 border-primary/20 flex-shrink-0">
+                  <Avatar className="w-10 h-10 border-2 border-primary/20 flex-shrink-0">
                     <AvatarFallback className="bg-gradient-primary text-primary-foreground">
                       <Sparkles className="w-5 h-5" />
                     </AvatarFallback>
@@ -202,9 +222,9 @@ export const Workspace = () => {
                 <div className={`flex-1 max-w-3xl ${ message.role === 'user' ? 'flex flex-col items-end' : ''}`}>
                   <Card className={`${
                     message.role === 'user' 
-                      ? 'bg-gradient-primary text-primary-foreground border-0' 
-                      : 'bg-card border-border/50'
-                  } shadow-md`}>
+                      ? 'bg-gradient-primary text-primary-foreground border-0 shadow-md' 
+                      : 'bg-card/95 backdrop-blur-sm border-border/50 shadow-lg'
+                  } card-lift`}>
                     <CardContent className="pt-4 pb-4">
                       {/* Uploaded Files */}
                       {message.files && message.files.length > 0 && (
@@ -229,18 +249,18 @@ export const Workspace = () => {
                         message.role === 'user' ? 'prose-invert' : ''
                       }`}>
                         {message.content.split('\n').map((line, i) => (
-                          <p key={i} className="mb-2 last:mb-0 whitespace-pre-wrap font-sans">{line}</p>
+                          <p key={i} className="mb-2 last:mb-0 whitespace-pre-wrap font-sans leading-relaxed">{line}</p>
                         ))}
                       </div>
                     </CardContent>
                   </Card>
-                  <span className="text-xs text-muted-foreground mt-1 font-sans">
+                  <span className="text-xs text-muted-foreground mt-1.5 font-sans">
                     {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </span>
                 </div>
 
                 {message.role === 'user' && (
-                  <Avatar className="w-9 h-9 border-2 border-primary/20 flex-shrink-0">
+                  <Avatar className="w-10 h-10 border-2 border-primary/20 flex-shrink-0">
                     <AvatarFallback className="bg-muted text-muted-foreground font-semibold">U</AvatarFallback>
                   </Avatar>
                 )}
@@ -249,13 +269,13 @@ export const Workspace = () => {
 
             {/* Processing Indicator */}
             {isProcessing && (
-              <div className="flex gap-3 justify-start">
-                <Avatar className="w-9 h-9 border-2 border-primary/20">
+              <div className="flex gap-3 justify-start animate-bounce-in">
+                <Avatar className="w-10 h-10 border-2 border-primary/20">
                   <AvatarFallback className="bg-gradient-primary text-primary-foreground">
                     <Sparkles className="w-5 h-5" />
                   </AvatarFallback>
                 </Avatar>
-                <Card className="bg-card border-border/50 shadow-md">
+                <Card className="bg-card/95 backdrop-blur-sm border-border/50 shadow-lg">
                   <CardContent className="pt-4 pb-4">
                     <div className="flex items-center gap-2">
                       <div className="flex gap-1">
@@ -269,15 +289,16 @@ export const Workspace = () => {
                 </Card>
               </div>
             )}
+            <div ref={messagesEndRef} />
           </div>
 
           {/* Input Area */}
-          <Card className="border-border/50 shadow-lg bg-card/95 backdrop-blur-sm sticky bottom-4 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+          <Card className="border-border/50 shadow-xl bg-card/95 backdrop-blur-sm sticky bottom-4 animate-slide-up" style={{ animationDelay: '0.2s' }}>
             <CardContent className="pt-6">
               {/* Quick Prompts */}
               {messages.length <= 2 && (
                 <div className="mb-4">
-                  <p className="text-sm text-muted-foreground mb-2 font-sans">Quick prompts:</p>
+                  <p className="text-sm text-muted-foreground mb-3 font-sans font-medium">Quick prompts:</p>
                   <div className="flex flex-wrap gap-2">
                     {quickPrompts.map((prompt, i) => (
                       <Button
@@ -285,7 +306,7 @@ export const Workspace = () => {
                         variant="outline"
                         size="sm"
                         onClick={() => handleQuickPrompt(prompt.text)}
-                        className={`${prompt.color} hover:scale-105 transition-transform font-sans`}
+                        className={`${prompt.color} hover:scale-105 transition-all duration-300 font-sans`}
                       >
                         {prompt.icon}
                         <span className="ml-1.5">{prompt.text}</span>
@@ -300,9 +321,9 @@ export const Workspace = () => {
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
-                className={`mb-4 border-2 border-dashed rounded-lg p-6 transition-all ${
+                className={`mb-4 border-2 border-dashed rounded-xl p-6 transition-all duration-300 ${
                   isDragging 
-                    ? 'border-primary bg-primary/5 scale-[1.02]' 
+                    ? 'border-primary bg-primary/5 scale-[1.01] shadow-glow' 
                     : 'border-border/50 hover:border-border hover:bg-muted/20'
                 }`}
               >
@@ -320,23 +341,26 @@ export const Workspace = () => {
                     onClick={() => fileInputRef.current?.click()}
                     className="w-full flex flex-col items-center justify-center gap-2 group"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                      <Upload className="w-6 h-6 text-primary" />
+                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-all duration-300 group-hover:scale-110">
+                      <Upload className="w-7 h-7 text-primary" />
                     </div>
                     <div className="text-center">
-                      <p className="text-sm font-medium text-foreground font-sans">Drop files here or click to browse</p>
-                      <p className="text-xs text-muted-foreground mt-1 font-sans">Supports images and videos</p>
+                      <p className="text-sm font-semibold text-foreground font-sans">Drop files here or click to browse</p>
+                      <p className="text-xs text-muted-foreground mt-1 font-sans">Supports images and videos • Max 50MB</p>
                     </div>
                   </button>
                 ) : (
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <div className="flex items-center justify-between mb-3">
-                      <p className="text-sm font-medium text-foreground font-sans">{uploadedFiles.length} file(s) uploaded</p>
+                      <p className="text-sm font-semibold text-foreground font-sans flex items-center gap-2">
+                        <Badge variant="secondary" className="font-sans">{uploadedFiles.length}</Badge>
+                        file(s) uploaded
+                      </p>
                       <Button
                         size="sm"
                         variant="outline"
                         onClick={() => fileInputRef.current?.click()}
-                        className="font-sans"
+                        className="font-sans hover:bg-primary/10"
                       >
                         <Paperclip className="w-4 h-4 mr-1" />
                         Add more
@@ -344,7 +368,7 @@ export const Workspace = () => {
                     </div>
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                       {uploadedFiles.map(file => (
-                        <div key={file.id} className="relative group rounded-lg overflow-hidden border border-border/50">
+                        <div key={file.id} className="relative group rounded-lg overflow-hidden border border-border/50 card-lift">
                           {file.type === 'image' ? (
                             <img src={file.url} alt={file.name} className="w-full h-24 object-cover" />
                           ) : (
@@ -354,7 +378,7 @@ export const Workspace = () => {
                           )}
                           <button
                             onClick={() => removeFile(file.id)}
-                            className="absolute top-1 right-1 w-6 h-6 rounded-full bg-destructive text-destructive-foreground opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                            className="absolute top-1 right-1 w-6 h-6 rounded-full bg-destructive text-destructive-foreground opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:scale-110"
                           >
                             <X className="w-4 h-4" />
                           </button>
@@ -377,20 +401,20 @@ export const Workspace = () => {
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Tell me what you want to create... (e.g., 'I'm 21, building a language app, need TikTok content ideas')"
-                  className="min-h-[80px] resize-none focus:ring-primary font-sans"
+                  className="min-h-[80px] resize-none focus:ring-primary font-sans text-base"
                   disabled={isProcessing}
                 />
                 <Button
                   onClick={handleSendMessage}
                   disabled={isProcessing || (!inputValue.trim() && uploadedFiles.length === 0)}
-                  className="bg-gradient-primary hover:shadow-glow self-end px-4 h-[80px]"
+                  className="bg-gradient-primary hover:shadow-glow self-end px-5 h-[80px] transition-all duration-300"
                 >
                   <Send className="w-5 h-5" />
                 </Button>
               </div>
 
               <p className="text-xs text-muted-foreground mt-2 font-sans">
-                Press Enter to send, Shift + Enter for new line
+                <kbd className="px-1.5 py-0.5 rounded bg-muted text-muted-foreground text-xs">Enter</kbd> to send, <kbd className="px-1.5 py-0.5 rounded bg-muted text-muted-foreground text-xs">Shift + Enter</kbd> for new line
               </p>
             </CardContent>
           </Card>

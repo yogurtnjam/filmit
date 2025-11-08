@@ -47,6 +47,17 @@ export const LandingPage = () => {
     'No watermarks'
   ];
 
+  const handleGetStarted = () => {
+    // Mock authentication check - in production, check if user is logged in
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    
+    if (isLoggedIn) {
+      navigate('/workspace');
+    } else {
+      navigate('/login');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-sky relative overflow-hidden">
       {/* Floating decorative stickers */}
@@ -72,7 +83,7 @@ export const LandingPage = () => {
               <Button variant="ghost" onClick={() => navigate('/login')} className="font-sans">
                 Sign in
               </Button>
-              <Button onClick={() => navigate('/workspace')} className="bg-gradient-primary hover:shadow-glow font-sans">
+              <Button onClick={handleGetStarted} className="bg-gradient-primary hover:shadow-glow font-sans">
                 Get Started
               </Button>
             </div>
@@ -103,7 +114,7 @@ export const LandingPage = () => {
             <div className="flex flex-wrap gap-4">
               <Button 
                 size="lg" 
-                onClick={() => navigate('/workspace')}
+                onClick={handleGetStarted}
                 className="bg-gradient-primary hover:shadow-glow text-lg h-14 px-8 font-sans font-semibold group"
               >
                 Start Creating Free
@@ -257,7 +268,7 @@ export const LandingPage = () => {
           </p>
           <Button 
             size="lg"
-            onClick={() => navigate('/workspace')}
+            onClick={handleGetStarted}
             className="bg-accent text-ink-black hover:bg-accent/90 text-lg h-14 px-10 font-sans font-semibold shadow-glow-neon group"
           >
             Get Early Access

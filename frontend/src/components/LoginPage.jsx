@@ -26,8 +26,10 @@ export const LoginPage = () => {
     setTimeout(() => {
       setIsLoading(false);
       toast.success(`Successfully connected to ${provider}!`);
-      // Redirect to home page after successful login
-      setTimeout(() => navigate('/'), 500);
+      // Set mock login state
+      localStorage.setItem('isLoggedIn', 'true');
+      // Redirect to workspace after successful login
+      setTimeout(() => navigate('/workspace'), 500);
     }, 1500);
   };
 
@@ -46,8 +48,10 @@ export const LoginPage = () => {
         description: 'Welcome back to your content creation hub.'
       });
       setIsLoading(false);
-      // Redirect to home page after successful login
-      setTimeout(() => navigate('/'), 500);
+      // Set mock login state
+      localStorage.setItem('isLoggedIn', 'true');
+      // Redirect to workspace after successful login
+      setTimeout(() => navigate('/workspace'), 500);
     }, 1000);
   };
 
@@ -113,20 +117,20 @@ export const LoginPage = () => {
       <div className="w-full max-w-6xl relative z-10">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left side - Branding */}
-          <div className="hidden lg:block space-y-8 animate-fade-in">
+          <div className="hidden lg:block space-y-8 animate-slide-up">
             <div className="space-y-6">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full backdrop-blur-sm border border-primary/20">
                 <Sparkles className="w-4 h-4 text-primary" />
                 <span className="text-sm font-medium text-primary">AI-Powered Content Insights</span>
               </div>
               
-              <h1 className="text-5xl lg:text-6xl font-bold text-foreground leading-tight">
+              <h1 className="text-5xl lg:text-6xl font-display font-bold leading-tight text-foreground">
                 Create Content
                 <br />
                 <span className="bg-gradient-primary bg-clip-text text-transparent">That Trends</span>
               </h1>
               
-              <p className="text-lg text-muted-foreground leading-relaxed max-w-xl">
+              <p className="text-lg text-muted-foreground leading-relaxed max-w-xl font-sans">
                 Get real-time feedback on your content based on actual trending formats indexed across all major platforms.
               </p>
             </div>
@@ -165,7 +169,7 @@ export const LoginPage = () => {
           </div>
 
           {/* Right side - Login Form */}
-          <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
+          <div className="animate-slide-up" style={{ animationDelay: '0.2s' }}>
             <Card className="border-border/50 shadow-xl backdrop-blur-sm bg-card/95">
               <CardHeader className="space-y-2 pb-6">
                 <div className="lg:hidden mb-4">
