@@ -176,7 +176,7 @@ export const Workspace = () => {
               <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center shadow-sm">
                 <Video className="w-6 h-6 text-primary-foreground" />
               </div>
-              <span className="text-xl font-display font-bold text-foreground">ContentFlow</span>
+              <span className="text-xl font-logo font-bold text-foreground">Trendle</span>
             </button>
             <div className="flex items-center gap-4">
               <Badge className="hidden sm:flex bg-accent/20 text-foreground border-accent/30 hover:bg-accent/30 font-sans">
