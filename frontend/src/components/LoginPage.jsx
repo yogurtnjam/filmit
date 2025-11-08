@@ -106,9 +106,13 @@ export const LoginPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-subtle flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-subtle flex items-center justify-center p-4 relative overflow-hidden gradient-bg-dynamic">
+      {/* Dynamic gradient orbs */}
+      <div className="gradient-orb-1"></div>
+      <div className="gradient-orb-2"></div>
+      
       {/* Background decorative elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-float"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }}></div>
         <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-secondary/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
