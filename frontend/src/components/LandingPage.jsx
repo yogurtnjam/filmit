@@ -79,10 +79,7 @@ export const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center">
-                <Video className="w-6 h-6 text-primary-foreground" />
-              </div>
-              <span className="text-xl font-logo font-bold text-foreground">Trendle</span>
+              <span className="text-3xl font-logo font-bold text-foreground">Trendle</span>
             </div>
             <div className="flex items-center gap-4">
               <Button variant="ghost" onClick={() => navigate('/login')} className="font-sans">
