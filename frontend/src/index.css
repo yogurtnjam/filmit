@@ -167,6 +167,12 @@ code {
         font-weight: 400;
     }
     
+    .font-logo {
+        font-family: 'Rubik Puddles', cursive;
+        font-weight: 400;
+        letter-spacing: 0.02em;
+    }
+    
     .font-sans {
         font-family: 'Bodoni Moda', serif;
     }
