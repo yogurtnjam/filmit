@@ -114,22 +114,18 @@ export const LandingPage = () => {
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <Button 
-                size="lg" 
+              <button 
                 onClick={handleGetStarted}
-                className="bg-gradient-primary hover:shadow-glow text-lg h-14 px-8 font-sans font-semibold group"
+                className="px-8 py-4 rounded-xl bg-card border-2 border-border hover:border-primary/50 transition-all duration-300 shadow-md hover:shadow-lg group"
               >
-                Start Creating Free
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline"
+                <span className="marker-highlight-small text-foreground">Start Creating Free</span>
+              </button>
+              <button 
                 onClick={() => navigate('/login')}
-                className="text-lg h-14 px-8 border-2 font-sans font-semibold"
+                className="px-8 py-4 rounded-xl bg-card border-2 border-border hover:border-primary/50 transition-all duration-300 shadow-md hover:shadow-lg"
               >
-                Watch Demo
-              </Button>
+                <span className="marker-highlight-small text-foreground">Watch Demo</span>
+              </button>
             </div>
 
             {/* Social Proof */}
