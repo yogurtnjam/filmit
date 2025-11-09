@@ -217,73 +217,88 @@ class DirectorSystemTester:
             self.log_test("Send Follow-up Message", False, f"Unexpected error: {str(e)}")
             return False
     
-    def test_3_send_followup_message(self):
-        """Test 3: Send Follow-up Message"""
-        print("=== Test 3: Send Follow-up Message ===")
+    def test_3_get_project_details(self):
+        """Test 3: Get Project Details - Tests project state persistence"""
+        print("=== Test 3: Get Project Details ===")
         
-        if not self.session_id or not self.conversation_history:
-            self.log_test("Send Follow-up Message", False, "No session_id or conversation_history available")
+        if not self.project_id:
+            self.log_test("Get Project Details", False, "No project_id available from previous test")
             return False
         
         try:
-            # Test data - follow-up message with platform and vibes info
-            payload = {
-                "session_id": self.session_id,
-                "message": "I'm targeting TikTok and Instagram with a professional but approachable vibe",
-                "conversation_history": self.conversation_history
-            }
-            
             # Make request
-            response = requests.post(
-                f"{BACKEND_URL}/chat/message",
-                json=payload,
-                headers={"Content-Type": "application/json"},
-                timeout=60
+            response = requests.get(
+                f"{BACKEND_URL}/director/project/{self.project_id}",
+                timeout=30
             )
             
             # Check status code
             if response.status_code != 200:
-                self.log_test("Send Follow-up Message", False, 
+                self.log_test("Get Project Details", False, 
                             f"Expected status 200, got {response.status_code}. Response: {response.text}")
                 return False
             
             # Parse response
             data = response.json()
             
-            # Validate response structure
-            if "confidence_scores" not in data:
-                self.log_test("Send Follow-up Message", False, 
-                            f"Missing confidence_scores in response: {data}")
+            # Validate project data structure
+            required_fields = ["project_id", "user_goal", "matched_format", "shot_list", "current_step", "uploaded_segments"]
+            missing_fields = [field for field in required_fields if field not in data]
+            if missing_fields:
+                self.log_test("Get Project Details", False, 
+                            f"Missing required fields: {missing_fields}")
                 return False
             
-            # Check that confidence scores have increased for platform and vibes
-            confidence_scores = data["confidence_scores"]
-            platform_confidence = confidence_scores.get("platform", 0)
-            vibes_confidence = confidence_scores.get("vibes", 0)
-            
-            if platform_confidence < 30:  # Should have some confidence after mentioning TikTok/Instagram
-                self.log_test("Send Follow-up Message", False, 
-                            f"Platform confidence too low after mentioning platforms: {platform_confidence}")
+            # Validate project_id matches
+            if data["project_id"] != self.project_id:
+                self.log_test("Get Project Details", False, 
+                            f"Project ID mismatch. Expected: {self.project_id}, Got: {data['project_id']}")
                 return False
             
-            if vibes_confidence < 30:  # Should have some confidence after mentioning professional/approachable
-                self.log_test("Send Follow-up Message", False, 
-                            f"Vibes confidence too low after mentioning vibes: {vibes_confidence}")
+            # Validate user_goal is preserved
+            if "AI language learning app" not in data["user_goal"]:
+                self.log_test("Get Project Details", False, 
+                            f"User goal not preserved correctly: {data['user_goal']}")
                 return False
             
-            # Update conversation history
-            self.conversation_history.append({"role": "user", "content": payload["message"]})
-            self.conversation_history.append({"role": "assistant", "content": data["message"]})
+            # Validate matched_format is present and correct
+            matched_format = data["matched_format"]
+            if not matched_format or matched_format.get("format_id") != "yc_demo_classic":
+                self.log_test("Get Project Details", False, 
+                            f"Matched format not preserved correctly: {matched_format}")
+                return False
             
-            self.log_test("Send Follow-up Message", True, 
-                        f"Confidence scores updated appropriately. Platform: {platform_confidence}, Vibes: {vibes_confidence}")
+            # Validate shot_list is present and structured
+            shot_list = data["shot_list"]
+            if not shot_list or len(shot_list) < 3:
+                self.log_test("Get Project Details", False, 
+                            f"Shot list not preserved correctly: {len(shot_list) if shot_list else 0} segments")
+                return False
+            
+            # Validate uploaded_segments is empty array (no uploads yet)
+            uploaded_segments = data["uploaded_segments"]
+            if not isinstance(uploaded_segments, list):
+                self.log_test("Get Project Details", False, 
+                            f"uploaded_segments should be a list, got: {type(uploaded_segments)}")
+                return False
+            
+            # Validate current_step is appropriate
+            current_step = data["current_step"]
+            valid_steps = ["initial", "format_matched", "script_planned", "recording_guide", "segments_uploaded", "video_edited", "complete"]
+            if current_step not in valid_steps:
+                self.log_test("Get Project Details", False, 
+                            f"Invalid current_step: {current_step}")
+                return False
+            
+            self.log_test("Get Project Details", True, 
+                        f"Project data retrieved successfully. Step: {current_step}, Segments: {len(shot_list)}")
             return True
             
         except requests.exceptions.RequestException as e:
-            self.log_test("Send Follow-up Message", False, f"Request failed: {str(e)}")
+            self.log_test("Get Project Details", False, f"Request failed: {str(e)}")
             return False
         except Exception as e:
-            self.log_test("Send Follow-up Message", False, f"Unexpected error: {str(e)}")
+            self.log_test("Get Project Details", False, f"Unexpected error: {str(e)}")
             return False
     
     def test_4_retrieve_session_data(self):
