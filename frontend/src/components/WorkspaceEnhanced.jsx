@@ -345,6 +345,9 @@ export const WorkspaceEnhanced = () => {
       case 'shot': return '🎥';
       case 'timestamp': return '⏱️';
       case 'format': return '🎬';
+      case 'audio': return '🎵';
+      case 'bgm': return '🎧';
+      case 'example_video': return '🌟';
       default: return '✨';
     }
   };
