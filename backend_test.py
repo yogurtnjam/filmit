@@ -251,10 +251,6 @@ class TrendleAPITester:
                     if 'suggestions' in first_doc and len(first_doc['suggestions']) > 0:
                         self.suggestion_id = first_doc['suggestions'][0]['id']
                         logger.info(f"Using suggestion ID: {self.suggestion_id}")
-                    else:
-                        logger.error(f"No suggestions found in document structure: {first_doc.keys()}")
-                        self.errors.append("No suggestions found in response structure")
-                        return
                         
                         # Test accept suggestion
                         accept_payload = {
@@ -282,7 +278,9 @@ class TrendleAPITester:
                         else:
                             self.errors.append(f"Accept suggestion failed: {accept_response.status_code}")
                     else:
+                        logger.error(f"No suggestions found in document structure: {first_doc.keys()}")
                         self.errors.append("No suggestions found in response structure")
+                        return
                 else:
                     self.errors.append("No suggestions documents found")
             else:
