@@ -109,10 +109,12 @@ Analyze this video and provide specific, actionable suggestions to make it more 
 
 1. **Recommend the BEST trending format** this content should follow (from the list above)
 2. **Generate specific suggestions** in these categories:
+   - Audio/BGM recommendations (trending background music that matches the content style)
+   - Example videos (similar content doing well - with titles, creators, and why they work)
    - Script rewrites or voice-over improvements
    - Text overlays to add (with exact timing)
    - Shot recommendations (what to re-record or emphasize)
-   - Timestamp cuts/edits (CRITICAL: what to trim, cut, or sync - with exact timestamps in seconds)
+   - Timestamp cuts/edits (what to trim, cut, or sync - with exact timestamps in seconds)
    - Format structure (how to reorganize content)
 
 **IMPORTANT:** Each suggestion must:
@@ -120,6 +122,19 @@ Analyze this video and provide specific, actionable suggestions to make it more 
 - Include reasoning based on current trends
 - Have a confidence score (0.0-1.0)
 - Be something the user can accept or reject
+
+**FOR AUDIO/BGM SUGGESTIONS:**
+- Include "type": "audio" or "bgm"
+- Provide specific song names and artists when possible
+- Explain why this audio is trending and fits the content
+- Include genre/mood/vibe of the audio
+
+**FOR EXAMPLE VIDEO SUGGESTIONS:**
+- Include "type": "example_video"
+- Provide video title and creator name
+- Explain what makes it successful (hook, pacing, format)
+- Include key metrics if available (views, engagement rate)
+- Explain how user can apply similar techniques
 
 **FOR TIMESTAMP SUGGESTIONS:**
 - Include "timestamp" field with time in seconds (e.g., 5.0, 12.5, 30.0)
@@ -135,23 +150,27 @@ Respond in this JSON format:
   }},
   "suggestions": [
     {{
-      "type": "script|text_overlay|shot|timestamp|format",
+      "type": "audio|bgm|example_video|script|text_overlay|shot|timestamp|format",
       "title": "Brief title",
       "description": "What to do",
-      "content": "Exact text/script/action",
+      "content": "Exact details (song name, video title, script, etc.)",
       "reasoning": "Why this will improve performance",
       "confidence_score": 0.85,
       "timestamp": 12.5,
-      "action": "CUT"
+      "action": "CUT",
+      "video_url": "https://tiktok.com/@creator/video/123",
+      "creator": "Creator name",
+      "metrics": "1.2M views, 8.5% engagement"
     }}
   ]
 }}
 
 Provide 8-12 diverse suggestions including:
-- 3-4 timestamp-based editing suggestions (cuts, trims, text overlays at specific times)
+- 2-3 audio/BGM recommendations (trending sounds that match the vibe)
+- 2-3 example videos (similar successful content with analysis)
+- 2-3 timestamp-based editing suggestions (cuts, trims, text overlays at specific times)
 - 2-3 script/voiceover improvements
-- 2-3 shot composition suggestions
-- 1-2 format structure recommendations
+- 1-2 shot composition suggestions
 """
         return prompt
     
