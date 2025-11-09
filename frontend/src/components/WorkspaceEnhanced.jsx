@@ -559,54 +559,14 @@ export const WorkspaceEnhanced = () => {
               </div>
             )}
 
-            {/* Timestamp Suggestions (Transcript Style) */}
-            {currentSuggestions.filter(s => s.type === 'timestamp').length > 0 && (
-              <div className="space-y-3 animate-slide-up">
-                <h3 className="text-lg font-semibold text-foreground font-display flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-primary" />
-                  Cutting & Timing Advice (Transcript)
-                </h3>
-                <Card className="border-border/50 shadow-md bg-card/95 backdrop-blur-sm">
-                  <CardContent className="pt-4 pb-4">
-                    <div className="space-y-3 font-mono text-sm">
-                      {currentSuggestions
-                        .filter(s => s.type === 'timestamp')
-                        .sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0))
-                        .map((suggestion, idx) => (
-                          <div key={suggestion.id} className="flex gap-3 p-3 bg-muted/20 rounded-lg hover:bg-muted/30 transition-colors">
-                            <div className="flex-shrink-0 text-primary font-bold">
-                              [{formatTimestamp(suggestion.timestamp)}]
-                            </div>
-                            <div className="flex-1">
-                              <p className="font-semibold text-foreground mb-1">
-                                {suggestion.action || 'EDIT'}: {suggestion.title}
-                              </p>
-                              <p className="text-muted-foreground text-xs leading-relaxed">
-                                {suggestion.description}
-                              </p>
-                              {suggestion.content && (
-                                <div className="mt-2 p-2 bg-background rounded border border-border/50">
-                                  <p className="text-xs text-foreground italic">💡 {suggestion.content}</p>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        ))
-                      }
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            )}
-
-            {/* Regular Suggestions Display */}
-            {currentSuggestions.filter(s => s.type !== 'timestamp').length > 0 && (
+            {/* AI Suggestions Display */}
+            {currentSuggestions.length > 0 && (
               <div className="space-y-3 animate-slide-up">
                 <h3 className="text-lg font-semibold text-foreground font-display flex items-center gap-2">
                   <Wand2 className="w-5 h-5 text-primary" />
                   AI-Generated Suggestions
                 </h3>
-                {currentSuggestions.filter(s => s.type !== 'timestamp').map((suggestion, idx) => (
+                {currentSuggestions.map((suggestion, idx) => (
                   <Card 
                     key={suggestion.id} 
                     className={`border-border/50 shadow-md bg-card/95 backdrop-blur-sm card-lift ${
