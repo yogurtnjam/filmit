@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from './ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
-import { ArrowRight, Sparkles, Video, Wand2, Upload, TrendingUp, Target, Zap, MessageSquare, Check } from 'lucide-react';
+import { ArrowRight, Sparkles, Video, Wand2, Upload, TrendingUp, Target, Zap, MessageSquare, Check, Scissors, Film } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export const LandingPage = () => {
@@ -11,24 +11,24 @@ export const LandingPage = () => {
   const valueProps = [
     {
       icon: <TrendingUp className="w-6 h-6" />,
-      title: 'Detect Formats',
-      description: 'AI analyzes thousands of viral videos to identify trending content structures across platforms.',
+      title: 'Detect Viral Patterns',
+      description: 'AI analyzes thousands of viral videos to understand exactly what makes content explode across platforms.',
       color: 'bg-primary',
-      badge: '🔥 Hot'
+      badge: '🔥 Real-Time'
     },
     {
-      icon: <Wand2 className="w-6 h-6" />,
-      title: 'Coach the Cut',
-      description: 'Get real-time suggestions on hooks, beats, pacing, and captions to match what is working now.',
+      icon: <Scissors className="w-6 h-6" />,
+      title: 'Direct Every Cut',
+      description: 'Get step-by-step coaching on hooks, pacing, transitions, and creative decisions as you build your video.',
       color: 'bg-secondary',
-      badge: '⚡ AI-Powered'
+      badge: '⚡ AI Director'
     },
     {
-      icon: <Upload className="w-6 h-6" />,
-      title: 'Export & Post',
-      description: 'Format for TikTok, Instagram Reels, or YouTube Shorts with one click—captions, hashtags included.',
+      icon: <Film className="w-6 h-6" />,
+      title: 'Coach to Viral',
+      description: 'From first frame to final export, our AI guides your creative process to match proven viral formulas.',
       color: 'bg-accent text-ink-black',
-      badge: '✨ Magic'
+      badge: '✨ Step-by-Step'
     }
   ];
 
@@ -39,16 +39,15 @@ export const LandingPage = () => {
   ];
 
   const features = [
-    'Trend intelligence updated daily',
-    'Drag-and-drop beat builder',
-    'AI-powered content coach',
-    'Multi-platform export',
-    'Caption & hashtag generator',
-    'No watermarks'
+    'AI-directed shot decisions',
+    'Real-time creative coaching',
+    'Viral format templates',
+    'Multi-platform optimization',
+    'Caption & hashtag generation',
+    'Step-by-step guidance'
   ];
 
   const handleGetStarted = () => {
-    // Mock authentication check - in production, check if user is logged in
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     
     if (isLoggedIn) {
@@ -82,11 +81,8 @@ export const LandingPage = () => {
               <span className="text-5xl font-logo font-bold text-foreground">Trendle</span>
             </div>
             <div className="flex items-center gap-4">
-              <button onClick={() => navigate('/login')} className="font-sans text-base hover:opacity-80 transition-opacity">
-                <span className="marker-highlight-small">Sign in</span>
-              </button>
               <button onClick={handleGetStarted} className="font-sans text-base hover:opacity-80 transition-opacity">
-                <span className="marker-highlight-small">Get Started</span>
+                <span className="marker-highlight-small">Try Now</span>
               </button>
             </div>
           </div>
@@ -100,7 +96,7 @@ export const LandingPage = () => {
           <div className="space-y-8 animate-slide-up">
             <Badge className="bg-accent/20 text-foreground border-accent/30 hover:bg-accent/30">
               <Sparkles className="w-3 h-3 mr-1" />
-              Grammarly for Content Creators
+              AI Director for Content Creators
             </Badge>
             
             <h1 className="text-6xl lg:text-7xl font-display font-bold leading-[1.1] text-foreground">
@@ -110,7 +106,7 @@ export const LandingPage = () => {
             </h1>
             
             <p className="text-xl text-muted-foreground leading-relaxed max-w-xl font-sans">
-              Get real-time feedback on your content based on actual trending formats we've indexed across TikTok, Instagram, and YouTube.
+              AI that doesn't just analyze—it directs. Get coached through every cut, transition, and creative decision based on proven viral formats.
             </p>
 
             <div className="flex flex-wrap gap-4">
@@ -119,12 +115,6 @@ export const LandingPage = () => {
                 className="px-8 py-4 rounded-xl bg-card border-2 border-border hover:border-primary/50 transition-all duration-300 shadow-md hover:shadow-lg group"
               >
                 <span className="marker-highlight-small text-foreground">Start Creating Free</span>
-              </button>
-              <button 
-                onClick={() => navigate('/login')}
-                className="px-8 py-4 rounded-xl bg-card border-2 border-border hover:border-primary/50 transition-all duration-300 shadow-md hover:shadow-lg"
-              >
-                <span className="marker-highlight-small text-foreground">Watch Demo</span>
               </button>
             </div>
 
@@ -152,7 +142,7 @@ export const LandingPage = () => {
                     <div className="absolute inset-0 bg-gradient-to-br from-muted to-muted-foreground/10"></div>
                     <div className="relative text-center p-4">
                       <Video className="w-12 h-12 text-muted-foreground mx-auto mb-2" />
-                      <p className="text-sm text-muted-foreground font-sans">Generic content</p>
+                      <p className="text-sm text-muted-foreground font-sans">Guessing</p>
                     </div>
                   </div>
                 </CardContent>
@@ -173,11 +163,11 @@ export const LandingPage = () => {
                 <CardContent>
                   <div className="aspect-[9/16] bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg flex items-center justify-center relative overflow-hidden border-2 border-primary/30">
                     <div className="absolute top-2 right-2">
-                      <Badge className="bg-accent/90 text-ink-black border-0 font-sans text-xs">🔥 Trending</Badge>
+                      <Badge className="bg-accent/90 text-ink-black border-0 font-sans text-xs">🔥 Viral</Badge>
                     </div>
                     <div className="text-center p-4">
                       <Sparkles className="w-12 h-12 text-primary mx-auto mb-2" />
-                      <p className="text-sm font-semibold text-foreground font-sans">Viral-ready</p>
+                      <p className="text-sm font-semibold text-foreground font-sans">AI-Directed</p>
                     </div>
                   </div>
                 </CardContent>
@@ -192,10 +182,10 @@ export const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-display font-bold text-foreground mb-4">
-              Your AI Content <span className="marker-highlight">Strategist</span>
+              Your AI Content <span className="marker-highlight">Director</span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-sans">
-              Stop guessing what works. Let AI analyze millions of videos and coach your content to match trending formats.
+              Stop guessing. Let AI direct your content creation—from first shot to final cut—based on millions of viral videos.
             </p>
           </div>
 
@@ -230,10 +220,10 @@ export const LandingPage = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <h2 className="text-4xl lg:text-5xl font-display font-bold text-foreground leading-tight">
-                Everything you need to create <span className="marker-highlight">trending content</span>
+                AI that <span className="marker-highlight">directs</span> your creative process
               </h2>
               <p className="text-lg text-muted-foreground font-sans">
-                Built for creators who want to move fast and stay ahead of trends.
+                Every cut, every transition, every creative decision—coached by AI that knows what works.
               </p>
             </div>
 
@@ -259,16 +249,16 @@ export const LandingPage = () => {
       <section className="relative z-10 bg-foreground text-background">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
           <h2 className="text-4xl lg:text-5xl font-display font-bold mb-6">
-            Ready to go viral?
+            Ready for AI direction?
           </h2>
           <p className="text-xl opacity-90 mb-10 font-sans">
-            Join thousands of creators using AI to make content that actually performs.
+            Join thousands of creators who stopped guessing and started making viral content with AI coaching.
           </p>
           <button 
             onClick={handleGetStarted}
             className="px-10 py-4 rounded-xl bg-card border-2 border-border hover:border-primary/50 transition-all duration-300 shadow-lg hover:shadow-xl group"
           >
-            <span className="marker-highlight-small text-foreground text-lg">Get Early Access</span>
+            <span className="marker-highlight-small text-foreground text-lg">Start Creating Now</span>
           </button>
           <p className="text-sm opacity-70 mt-6 font-sans">No credit card required • Free forever plan</p>
         </div>
