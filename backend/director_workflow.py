@@ -96,16 +96,20 @@ class DirectorWorkflow:
         """Determine which agent to route to next"""
         current_step = state.get("current_step", "initial")
         
-        routing_map = {
-            "initial": "format_matcher",
-            "format_matched": "script_planner",
-            "script_planned": "recording_guide",
-            "segments_uploaded": "video_editor",
-            "video_edited": "export",
-            "complete": "end"
-        }
-        
-        return routing_map.get(current_step, "end")
+        # For initial project creation, go through format matching and script planning
+        if current_step == "initial":
+            return "format_matcher"
+        elif current_step == "format_matched":
+            return "script_planner"
+        elif current_step == "script_planned":
+            # Stop here for user interaction - they need to upload segments
+            return "end"
+        elif current_step == "segments_uploaded":
+            return "video_editor"
+        elif current_step == "video_edited":
+            return "export"
+        else:
+            return "end"
     
     async def director_agent(self, state: DirectorState) -> DirectorState:
         """
