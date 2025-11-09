@@ -128,6 +128,11 @@ export const Workspace = () => {
       toast.error('Please add a message or upload files');
       return;
     }
+    
+    if (!sessionId) {
+      toast.error('Session not initialized. Please refresh the page.');
+      return;
+    }
 
     const userMessage = {
       role: 'user',
@@ -137,17 +142,62 @@ export const Workspace = () => {
     };
 
     setMessages(prev => [...prev, userMessage]);
+    const currentMessage = inputValue.trim();
     setInputValue('');
     setUploadedFiles([]);
     setIsProcessing(true);
 
-    // Mock AI response
-    setTimeout(() => {
-      const aiResponse = generateMockResponse(userMessage);
-      setMessages(prev => [...prev, aiResponse]);
+    try {
+      // Build conversation history for API
+      const conversationHistory = messages.map(msg => ({
+        role: msg.role,
+        content: msg.content
+      }));
+      
+      const response = await fetch(`${BACKEND_URL}/api/chat/message`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          session_id: sessionId,
+          message: currentMessage,
+          conversation_history: conversationHistory
+        })
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        
+        const aiResponse = {
+          role: 'assistant',
+          content: data.message,
+          timestamp: new Date()
+        };
+        
+        setMessages(prev => [...prev, aiResponse]);
+        setProfileData(data.profile_data || {});
+        setConfidenceScores(data.confidence_scores || {});
+        
+        // Check if profile is complete
+        if (data.summary_status === 'complete') {
+          toast.success('Profile Complete! 🎉', { 
+            description: 'Your content profile is ready for trend matching.' 
+          });
+        } else {
+          toast.success('Response received! 💬');
+        }
+      } else {
+        toast.error('Failed to get response from AI');
+        const errorData = await response.json().catch(() => ({}));
+        console.error('API Error:', errorData);
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      toast.error('Failed to connect to AI. Please try again.');
+    } finally {
       setIsProcessing(false);
-      toast.success('Analysis complete! 🎯', { description: 'Check out my suggestions below.' });
-    }, 2000);
+    }
   };
 
   const generateMockResponse = (userMessage) => {
