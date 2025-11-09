@@ -384,16 +384,16 @@ class DirectorSystemTester:
     
     def run_all_tests(self):
         """Run all tests in sequence"""
-        print("🚀 Starting ProfileAgent Chat API Tests")
+        print("🚀 Starting Director System LangGraph Workflow Tests")
         print(f"Backend URL: {BACKEND_URL}")
         print("=" * 60)
         
         # Run tests in order
         tests = [
-            self.test_1_create_chat_session,
-            self.test_2_send_first_message,
-            self.test_3_send_followup_message,
-            self.test_4_retrieve_session_data
+            self.test_1_create_video_project,
+            self.test_2_send_followup_message,
+            self.test_3_get_project_details,
+            self.test_4_verify_viral_formats_seeded
         ]
         
         for test_func in tests:
@@ -401,6 +401,8 @@ class DirectorSystemTester:
             if not success:
                 print("❌ Test failed, stopping execution")
                 break
+            # Small delay between tests to avoid overwhelming the system
+            time.sleep(1)
         
         # Summary
         print("=" * 60)
@@ -417,7 +419,7 @@ class DirectorSystemTester:
         print(f"\nResults: {passed}/{total} tests passed")
         
         if passed == total:
-            print("🎉 All tests passed! ProfileAgent Chat API is working correctly.")
+            print("🎉 All tests passed! Director System with LangGraph workflow is working correctly.")
             return True
         else:
             print("⚠️  Some tests failed. Check the details above.")
