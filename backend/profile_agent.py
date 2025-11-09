@@ -445,8 +445,8 @@ Your Response:"""
         
         # Save any extracted data
         if extracted_data:
-            await save_profile_data.ainvoke({
-                "session_id": session_id,
-                "db": self.db,
+            await save_profile_data(
+                session_id=session_id,
+                db=self.db,
                 **extracted_data
-            })
+            )
