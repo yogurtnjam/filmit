@@ -31,8 +31,7 @@ async def save_session_to_db(db: AsyncIOMotorDatabase, session_data: Dict[str, A
     )
 
 
-# LangChain Tools
-@tool
+# Profile Agent Tools (converted from LangChain tools to regular functions)
 async def calculate_confidence_score(session_id: str, db: AsyncIOMotorDatabase) -> Dict[str, float]:
     """
     Analyzes the current conversation data and returns confidence scores (0-100) 
