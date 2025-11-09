@@ -82,11 +82,8 @@ export const LandingPage = () => {
               <span className="text-3xl font-logo font-bold text-foreground">Trendle</span>
             </div>
             <div className="flex items-center gap-4">
-              <button onClick={() => navigate('/login')} className="font-sans text-base hover:opacity-80 transition-opacity">
-                <span className="marker-highlight-small">Sign in</span>
-              </button>
               <button onClick={handleGetStarted} className="font-sans text-base hover:opacity-80 transition-opacity">
-                <span className="marker-highlight-small">Get Started</span>
+                <span className="marker-highlight-small">Try Now</span>
               </button>
             </div>
           </div>
