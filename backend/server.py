@@ -62,6 +62,24 @@ class SessionResponse(BaseModel):
     session_id: str
     created_at: str
 
+# Director Workflow Models
+class DirectorProjectCreate(BaseModel):
+    user_goal: str
+    product_type: Optional[str] = "general"
+    target_platform: Optional[str] = "YouTube"
+
+class DirectorMessageInput(BaseModel):
+    project_id: str
+    message: str
+
+class DirectorResponse(BaseModel):
+    project_id: str
+    message: str
+    current_step: str
+    shot_list: Optional[List[Dict[str, Any]]] = None
+    matched_format: Optional[Dict[str, Any]] = None
+    user_input_needed: bool = False
+
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
