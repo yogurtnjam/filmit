@@ -35,7 +35,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/workspace" element={<Workspace />} />
+          <Route path="/workspace" element={<WorkspaceEnhanced />} />
         </Routes>
       </BrowserRouter>
     </div>
