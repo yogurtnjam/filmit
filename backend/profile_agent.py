@@ -387,12 +387,12 @@ Your Response:"""
         await self._extract_and_save_info(session_id, user_message, agent_response)
         
         # Recalculate confidence
-        new_scores = await calculate_confidence_score.ainvoke({"session_id": session_id, "db": self.db})
+        new_scores = await calculate_confidence_score(session_id, self.db)
         
         # Check if we should generate summary
         summary_status = None
         if new_scores.get("overall", 0) >= 60:
-            summary_result = await generate_summary.ainvoke({"session_id": session_id, "db": self.db})
+            summary_result = await generate_summary(session_id, self.db)
             summary_status = summary_result.get("status")
         
         # Add agent response to conversation history
