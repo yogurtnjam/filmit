@@ -86,7 +86,7 @@ class DirectorWorkflow:
         # Agents route back to director only when needed
         workflow.add_edge("format_matcher", "director")
         workflow.add_edge("script_planner", END)  # End after script planning for user interaction
-        workflow.add_edge("recording_guide", END)
+        workflow.add_edge("recording_guide", END)  # End after providing recording instructions
         workflow.add_edge("video_editor", "director")
         workflow.add_edge("export", END)
         
