@@ -351,10 +351,10 @@ frontend:
 
 metadata:
   created_by: "main_agent"
-  version: "2.0"
-  test_sequence: 3
+  version: "3.0"
+  test_sequence: 4
   run_ui: false
-  last_tested: "2025-01-09"
+  last_tested: "2025-11-09"
 
 test_plan:
   current_focus: []
