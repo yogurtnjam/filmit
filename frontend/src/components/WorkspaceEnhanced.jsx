@@ -410,25 +410,116 @@ export const WorkspaceEnhanced = () => {
       </nav>
 
       {/* Main Content */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
-        <div className="space-y-6">
-          {/* Welcome Card */}
-          <Card className="border-border/50 shadow-xl bg-card/95 backdrop-blur-sm animate-slide-up relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl"></div>
-            <CardContent className="pt-6 relative">
-              <div className="flex items-start gap-4">
-                <div className="w-14 h-14 rounded-xl bg-gradient-primary flex items-center justify-center flex-shrink-0 shadow-md">
-                  <Sparkles className="w-7 h-7 text-primary-foreground" />
-                </div>
-                <div className="flex-1">
-                  <h2 className="text-3xl font-display font-bold text-foreground mb-2">Your AI Content Studio</h2>
-                  <p className="text-muted-foreground leading-relaxed text-lg font-sans">
-                    Upload your video and describe your goals. I'll analyze it against real trending formats and give you specific, actionable suggestions to boost engagement.
-                  </p>
+      <div className={`${isWorkspaceActive ? 'flex gap-6' : 'flex justify-center items-center min-h-[calc(100vh-8rem)]'} px-4 sm:px-6 lg:px-8 py-8 relative z-10 max-w-7xl mx-auto`}>
+        
+        {/* ChatGPT-style Initial View */}
+        {!isWorkspaceActive && (
+          <div className="w-full max-w-3xl space-y-8 animate-slide-up">
+            {/* Hero Section */}
+            <div className="text-center space-y-4">
+              <div className="flex justify-center mb-6">
+                <div className="w-20 h-20 rounded-2xl bg-gradient-primary flex items-center justify-center shadow-xl">
+                  <Clapperboard className="w-10 h-10 text-primary-foreground" />
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              <h1 className="text-5xl font-display font-bold text-foreground">
+                Your Personal Director
+              </h1>
+              <p className="text-xl text-muted-foreground leading-relaxed font-sans max-w-2xl mx-auto">
+                I'll help you create viral content by telling you what to film, where to cut (pauses, filler words), and which trending audio to use.
+              </p>
+            </div>
+
+            {/* Quick Actions */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Card className="border-border/50 shadow-lg bg-card/95 backdrop-blur-sm hover:shadow-xl transition-all cursor-pointer group"
+                    onClick={() => fileInputRef.current?.click()}>
+                <CardContent className="pt-6 pb-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-all">
+                      <Upload className="w-6 h-6 text-primary" />
+                    </div>
+                    <div className="flex-1 text-left">
+                      <h3 className="font-semibold text-foreground font-display mb-1">Upload Footage</h3>
+                      <p className="text-sm text-muted-foreground">Get AI editing suggestions</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-border/50 shadow-lg bg-card/95 backdrop-blur-sm hover:shadow-xl transition-all cursor-pointer group"
+                    onClick={() => { setIsWorkspaceActive(true); textareaRef.current?.focus(); }}>
+                <CardContent className="pt-6 pb-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center group-hover:bg-secondary/20 transition-all">
+                      <Film className="w-6 h-6 text-secondary" />
+                    </div>
+                    <div className="flex-1 text-left">
+                      <h3 className="font-semibold text-foreground font-display mb-1">Get Content Ideas</h3>
+                      <p className="text-sm text-muted-foreground">Ask what to create</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Examples */}
+            <div className="space-y-3">
+              <p className="text-sm text-muted-foreground font-semibold">Try asking:</p>
+              <div className="space-y-2">
+                {quickPrompts.map((prompt, i) => (
+                  <button
+                    key={i}
+                    onClick={() => { setInputValue(prompt.text); setIsWorkspaceActive(true); textareaRef.current?.focus(); }}
+                    className="w-full text-left p-3 rounded-lg border border-border/50 bg-card/80 hover:bg-muted/50 transition-all text-sm text-foreground font-sans flex items-center gap-2"
+                  >
+                    {prompt.icon}
+                    <span>{prompt.text}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Input at bottom */}
+            <Card className="border-border/50 shadow-xl bg-card/95 backdrop-blur-sm">
+              <CardContent className="pt-4 pb-4">
+                <div className="flex gap-2">
+                  <Textarea
+                    ref={textareaRef}
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    placeholder="Describe your content idea or ask for advice..."
+                    className="min-h-[60px] resize-none focus:ring-primary font-sans text-base"
+                    disabled={isProcessing || isAnalyzing || isUploading}
+                  />
+                  <Button
+                    onClick={handleSendMessage}
+                    disabled={isProcessing || isAnalyzing || isUploading || !inputValue.trim()}
+                    className="bg-gradient-primary hover:shadow-glow self-end px-5 h-[60px] transition-all duration-300"
+                  >
+                    <Send className="w-5 h-5" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Hidden file input */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="video/*"
+              onChange={handleFileSelect}
+              className="hidden"
+            />
+          </div>
+        )}
+
+        {/* Split Screen View - Active Workspace */}
+        {isWorkspaceActive && (
+          <>
+            {/* Left Side - Chat */}
+            <div className="flex-1 space-y-6 overflow-y-auto max-h-[calc(100vh-8rem)]">
 
           {/* Video Upload Area */}
           {!uploadedVideo && (
