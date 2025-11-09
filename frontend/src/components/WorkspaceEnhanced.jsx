@@ -32,6 +32,7 @@ export const WorkspaceEnhanced = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [currentSuggestions, setCurrentSuggestions] = useState([]);
   const [trendingFormat, setTrendingFormat] = useState(null);
+  const [isWorkspaceActive, setIsWorkspaceActive] = useState(false);
   const fileInputRef = useRef(null);
   const textareaRef = useRef(null);
   const messagesEndRef = useRef(null);
