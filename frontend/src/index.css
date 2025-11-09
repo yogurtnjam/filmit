@@ -318,9 +318,9 @@ code {
 .marker-highlight-small {
     position: relative;
     display: inline-block;
-    font-family: 'Pinyon Script', cursive;
-    font-size: 1.4em;
-    font-weight: 400;
+    font-family: 'Bodoni Moda', serif;
+    font-size: 1.1em;
+    font-weight: 600;
     line-height: 1.2;
 }
 
