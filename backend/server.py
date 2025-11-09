@@ -340,6 +340,15 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+@app.on_event("startup")
+async def startup_db():
+    """Seed viral formats on startup"""
+    try:
+        await seed_viral_formats(db)
+        logger.info("Viral formats seeded successfully")
+    except Exception as e:
+        logger.error(f"Error seeding viral formats: {str(e)}")
+
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
