@@ -4,7 +4,7 @@ import { Card, CardContent } from './ui/card';
 import { Textarea } from './ui/textarea';
 import { Badge } from './ui/badge';
 import { Avatar, AvatarFallback } from './ui/avatar';
-import { Sparkles, Upload, X, Send, Video, Image as ImageIcon, FileText, Paperclip, TrendingUp, Wand2, Zap, Rocket, Target } from 'lucide-react';
+import { Sparkles, Upload, X, Send, Video, Image as ImageIcon, FileText, Paperclip, TrendingUp, Wand2, Zap, Rocket, Target, Film, Scissors } from 'lucide-react';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ export const Workspace = () => {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: 'Hey there! 👋 I\'m your AI content strategist. Upload a video or image, tell me what you\'re creating, and I\'ll help you make it go viral.',
+      content: 'Hey there! 🎬 I\'m your AI content director. Upload your video or footage, and I\'ll coach you through every cut, transition, and creative decision to make it go viral.',
       timestamp: new Date()
     }
   ]);
@@ -34,9 +34,9 @@ export const Workspace = () => {
   }, [messages]);
 
   const quickPrompts = [
-    { icon: <TrendingUp className="w-4 h-4" />, text: 'Analyze trending formats', color: 'bg-primary/10 text-primary border-primary/20' },
-    { icon: <Wand2 className="w-4 h-4" />, text: 'Suggest hooks for this video', color: 'bg-secondary/10 text-secondary border-secondary/20' },
-    { icon: <Zap className="w-4 h-4" />, text: 'Generate captions & hashtags', color: 'bg-accent/20 text-foreground border-accent/30' },
+    { icon: <Scissors className="w-4 h-4" />, text: 'Direct my cuts and pacing', color: 'bg-primary/10 text-primary border-primary/20' },
+    { icon: <Film className="w-4 h-4" />, text: 'Coach my video structure', color: 'bg-secondary/10 text-secondary border-secondary/20' },
+    { icon: <Zap className="w-4 h-4" />, text: 'Guide my creative decisions', color: 'bg-accent/20 text-foreground border-accent/30' },
   ];
 
   const handleFileSelect = (e) => {
@@ -109,12 +109,11 @@ export const Workspace = () => {
     setUploadedFiles([]);
     setIsProcessing(true);
 
-    // Mock AI response
     setTimeout(() => {
       const aiResponse = generateMockResponse(userMessage);
       setMessages(prev => [...prev, aiResponse]);
       setIsProcessing(false);
-      toast.success('Analysis complete! 🎯', { description: 'Check out my suggestions below.' });
+      toast.success('Direction ready! 🎬', { description: 'Follow my coaching below.' });
     }, 2000);
   };
 
@@ -125,11 +124,11 @@ export const Workspace = () => {
     let response = '';
 
     if (hasVideo) {
-      response = `🎬 **Video Analysis Complete!**\n\nI've analyzed your video against trending formats. Here's what I found:\n\n**📊 Trending Format Match: "Hook + Problem + Solution"**\n- Shelf-life: 🔥 2-3 weeks\n- Best for: TikTok, Instagram Reels\n\n**💡 Suggestions:**\n1. **Hook (0-3s):** Start with "I built X so you don't have to..." - this format is performing 3x better right now\n2. **B-roll timing:** Add cuts every 2-3 seconds to maintain attention\n3. **Caption placement:** Keep text in the center-top third\n\n**✨ Recommended Captions:**\n"POV: You found the hack everyone's been hiding"\n"This changed everything for me"\n\n**#️⃣ Hot Hashtags:**\n#contentcreator #viral #trending #tutorial\n\nWant me to generate a full script or export this for multiple platforms?`;
+      response = `🎬 **Let's Direct This Video!**\n\nI've analyzed your footage against viral formats. Here's your step-by-step direction:\n\n**🎯 Viral Format: "Hook + Payoff + CTA"**\n- Current trend shelf-life: 🔥 2-3 weeks\n- Best platforms: TikTok, Instagram Reels\n\n**🎬 Shot-by-Shot Direction:**\n\n**CUT 1 (0-3s): The Hook**\n→ Start with close-up of your face\n→ First words: "I built [X] so you don't have to..."\n→ Cut on the word "have" for emphasis\n\n**CUT 2-4 (3-8s): The Problem**\n→ B-roll of the struggle (2-3 second cuts)\n→ Keep text overlay in upper third\n→ Add subtle zoom on each transition\n\n**CUT 5-7 (8-15s): The Payoff**\n→ Show the solution/result\n→ Faster cuts here (1.5-2 seconds each)\n→ End with your product/app in action\n\n**FINAL CUT (15-18s): The CTA**\n→ Back to face, direct eye contact\n→ "Link in bio" or "Follow for more"\n\n**✨ Caption Direction:**\n"POV: You found the hack everyone's been hiding 🤫"\n\n**#️⃣ Hashtags:**\n#contentcreator #viral #tutorial #lifehack\n\nReady to make these cuts? I'll coach you through each one!`;
     } else if (hasImage) {
-      response = `🖼️ **Image Analysis Complete!**\n\nGreat visual! Here's how to maximize engagement:\n\n**🎯 Content Strategy:**\n- This works best as a carousel post or Reels cover\n- Add text overlay with a hook question\n- Use bold, contrasting colors\n\n**💬 Caption Hooks:**\n1. "Stop scrolling. You need to see this."\n2. "Everyone's doing X wrong. Here's why."\n3. "This one trick changed my [niche]..."\n\n**📱 Platform Recommendations:**\n- Instagram: Carousel (swipe engagement +45%)\n- TikTok: Use as thumbnail with voiceover\n- YouTube Shorts: Combine with quick cuts\n\nReady to create the full post?`;
+      response = `🖼️ **Let's Direct This Visual!**\n\nHere's how I'll coach you to maximize engagement:\n\n**🎯 Production Direction:**\n\n**Step 1: Text Overlay**\n→ Add hook text in bold, contrasting color\n→ Position: Upper or lower third (never center)\n→ Font: Sans-serif, 60-80pt\n\n**Step 2: Create Movement**\n→ Option A: Turn into carousel (3-5 slides)\n→ Option B: Use as Reels cover with voiceover\n→ Option C: Add zoom/pan animation\n\n**Step 3: Caption Strategy**\nPick one of these proven hooks:\n1. "Stop scrolling. You need to see this."\n2. "Everyone's doing [X] wrong. Here's the right way."\n3. "This changed everything for me..."\n\n**📱 Platform Direction:**\n- **Instagram:** 4-slide carousel (swipe rate +45%)\n- **TikTok:** Use as thumbnail, add voiceover\n- **YouTube Shorts:** Combine with quick tutorial\n\nLet me know which direction you want to take, and I'll coach you through it!`;
     } else {
-      response = `👋 I'm ready to help! Here's what I can do:\n\n**🎯 Content Analysis:**\n- Analyze your videos against trending formats\n- Suggest hooks, beats, and pacing improvements\n- Generate captions and hashtags\n\n**💡 Trending Formats Right Now:**\n1. **"Episode 1 of X"** - Building series momentum (🔥 Hot)\n2. **"POV: "** - Relatable situations (⚡ Trending)\n3. **"I tested X so you don't have to"** - Tutorial style (✨ Rising)\n\n**📤 What I Need:**\nUpload a video or image, and tell me:\n- What platform you're targeting\n- Your niche/audience\n- What you want to achieve\n\nLet's make content that performs!`;
+      response = `🎬 **Ready to Direct Your Content!**\n\nI'm here to coach you through the entire production process. Here's how we'll work together:\n\n**🎯 What I'll Direct:**\n✓ Shot composition and framing\n✓ Cut timing and pacing\n✓ Transition choices\n✓ Hook structure (first 3 seconds)\n✓ B-roll placement\n✓ Caption and text overlay positioning\n✓ Audio/music cues\n✓ Call-to-action delivery\n\n**🔥 Trending Formats I'll Coach You Through:**\n\n1. **"Episode 1 of [X]"** - Series starter\n   → I'll direct your intro, pacing, and cliffhanger\n\n2. **"POV: [Situation]"** - Relatable scenarios\n   → I'll guide your cuts to match emotional beats\n\n3. **"I tested [X] so you don't have to"** - Tutorial style\n   → I'll coach your demonstration flow and reveals\n\n**📤 Let's Start:**\nUpload your footage or describe what you want to create, and tell me:\n- Target platform (TikTok/Instagram/YouTube)\n- Your niche or topic\n- What you want viewers to do\n\nI'll give you shot-by-shot direction to make it viral!`;
     }
 
     return {
@@ -177,8 +176,8 @@ export const Workspace = () => {
             </button>
             <div className="flex items-center gap-4">
               <Badge className="hidden sm:flex bg-accent/20 text-foreground border-accent/30 hover:bg-accent/30 font-sans">
-                <Sparkles className="w-3 h-3 mr-1" />
-                AI Workspace
+                <Film className="w-3 h-3 mr-1" />
+                AI Director
               </Badge>
               <Avatar className="w-9 h-9 border-2 border-primary/20">
                 <AvatarFallback className="bg-gradient-primary text-primary-foreground font-semibold">U</AvatarFallback>
@@ -197,12 +196,12 @@ export const Workspace = () => {
             <CardContent className="pt-6 relative">
               <div className="flex items-start gap-4">
                 <div className="w-14 h-14 rounded-xl bg-gradient-primary flex items-center justify-center flex-shrink-0 shadow-md">
-                  <Sparkles className="w-7 h-7 text-primary-foreground" />
+                  <Film className="w-7 h-7 text-primary-foreground" />
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-3xl font-display font-bold text-foreground mb-2">Your AI Content Studio</h2>
+                  <h2 className="text-3xl font-display font-bold text-foreground mb-2">Your AI Content Director</h2>
                   <p className="text-muted-foreground leading-relaxed text-lg font-sans">
-                    Upload your content and I'll analyze it against trending formats, suggest improvements, and help you create viral-ready posts.
+                    Upload your footage and I'll direct your content production—coaching you through every cut, transition, and creative decision based on viral formats.
                   </p>
                 </div>
               </div>
@@ -216,7 +215,7 @@ export const Workspace = () => {
                 {message.role === 'assistant' && (
                   <Avatar className="w-10 h-10 border-2 border-primary/20 flex-shrink-0">
                     <AvatarFallback className="bg-gradient-primary text-primary-foreground">
-                      <Sparkles className="w-5 h-5" />
+                      <Film className="w-5 h-5" />
                     </AvatarFallback>
                   </Avatar>
                 )}
@@ -274,7 +273,7 @@ export const Workspace = () => {
               <div className="flex gap-3 justify-start animate-bounce-in">
                 <Avatar className="w-10 h-10 border-2 border-primary/20">
                   <AvatarFallback className="bg-gradient-primary text-primary-foreground">
-                    <Sparkles className="w-5 h-5" />
+                    <Film className="w-5 h-5" />
                   </AvatarFallback>
                 </Avatar>
                 <Card className="bg-card/95 backdrop-blur-sm border-border/50 shadow-lg">
@@ -285,7 +284,7 @@ export const Workspace = () => {
                         <div className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                         <div className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: '0.4s' }}></div>
                       </div>
-                      <span className="text-sm text-muted-foreground font-sans">Analyzing your content...</span>
+                      <span className="text-sm text-muted-foreground font-sans">Preparing your direction...</span>
                     </div>
                   </CardContent>
                 </Card>
@@ -347,8 +346,8 @@ export const Workspace = () => {
                       <Upload className="w-7 h-7 text-primary" />
                     </div>
                     <div className="text-center">
-                      <p className="text-sm font-semibold text-foreground font-sans">Drop files here or click to browse</p>
-                      <p className="text-xs text-muted-foreground mt-1 font-sans">Supports images and videos • Max 50MB</p>
+                      <p className="text-sm font-semibold text-foreground font-sans">Drop your footage here or click to browse</p>
+                      <p className="text-xs text-muted-foreground mt-1 font-sans">Upload videos or images • Max 50MB</p>
                     </div>
                   </button>
                 ) : (
@@ -402,7 +401,7 @@ export const Workspace = () => {
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder="Tell me what you want to create... (e.g., 'I'm 21, building a language app, need TikTok content ideas')"
+                  placeholder="Tell me what you're creating... (e.g., 'I need direction for a TikTok about language learning apps')"
                   className="min-h-[80px] resize-none focus:ring-primary font-sans text-base"
                   disabled={isProcessing}
                 />
