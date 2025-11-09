@@ -239,50 +239,65 @@ test_plan:
   test_priority: "high_first"
 
 backend:
-  - task: "ProfileAgent with LangChain Tools"
+  - task: "LangGraph Director Workflow"
     implemented: true
-    working: true
-    file: "/app/backend/profile_agent.py"
+    working: "NA"
+    file: "/app/backend/director_workflow.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
       - working: "NA"
         agent: "main"
-        comment: "Created ProfileAgent module with LangChain integration using Claude Sonnet 4.5. Implemented custom tools: calculate_confidence_score, check_confidence_score, save_profile_data, get_profile_data, generate_summary. Agent extracts profile info (target_customer, product, audience, platform, vibes) from user conversations. Needs backend testing."
-      - working: true
-        agent: "testing"
-        comment: "ProfileAgent is working correctly. Fixed LangChain tool invocation issues by converting @tool decorators to regular async functions. Agent successfully extracts profile information from user messages using keyword detection and saves to MongoDB. Confidence scoring system works properly, calculating scores based on profile data completeness (0-90 points per field). All custom tools (calculate_confidence_score, save_profile_data, get_profile_data, generate_summary) are functional."
+        comment: "Created LangGraph workflow with 6 agents: Director (orchestrator), Format Matcher (matches user goals with viral formats), Script Planner (creates shot lists), Recording Guide (provides filming instructions), Video Editor (FFMPEG operations), Export Agent (platform optimization). Workflow uses state machine with conditional routing. Needs backend testing."
 
-  - task: "Chat API Endpoints"
+  - task: "FFMPEG Video Tools"
     implemented: true
-    working: true
+    working: "NA"
+    file: "/app/backend/video_tools.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Implemented FFMPEG wrapper tools: ffmpeg_merge_videos, ffmpeg_cut_video, ffmpeg_add_subtitles, ffmpeg_add_transition, ffmpeg_resize_video, ffmpeg_adjust_audio, get_video_metadata, optimize_for_platform. Tools handle video editing operations with proper error handling. Needs backend testing."
+
+  - task: "Viral Format Database"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/viral_formats.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Created viral format database with 4 templates: YC Demo Classic, Cluely Launch, Educational Tutorial, Before/After Transformation. Each format includes detailed structure (segments, duration, script templates, visual guides). Implemented query_viral_formats, calculate_format_match_score, get_format_by_id functions. Formats seeded on server startup. Needs backend testing."
+
+  - task: "Director API Endpoints"
+    implemented: true
+    working: "NA"
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
       - working: "NA"
         agent: "main"
-        comment: "Added three API endpoints: POST /api/chat/session (create new session), POST /api/chat/message (send message to ProfileAgent), GET /api/chat/session/{session_id} (retrieve session summary for MatchingAgent). All endpoints ready for testing."
-      - working: true
-        agent: "testing"
-        comment: "All three chat API endpoints are working correctly. POST /api/chat/session creates sessions with UUID session_id and ISO timestamps. POST /api/chat/message successfully processes messages through ProfileAgent with Claude Sonnet 4.5, returns agent responses with confidence scores and profile data. GET /api/chat/session/{session_id} retrieves complete session data including profile_data, confidence_scores, and conversation_history. All endpoints return proper HTTP 200 responses and handle errors appropriately."
+        comment: "Added Director workflow endpoints: POST /api/director/project (create new video project), POST /api/director/message (send message to director), POST /api/director/upload-segment (upload video segments), GET /api/director/project/{project_id} (get project details). All endpoints integrate with LangGraph workflow. Needs backend testing."
 
-  - task: "MongoDB Session Schema"
+  - task: "MongoDB Video Project Schema"
     implemented: true
-    working: true
-    file: "/app/backend/profile_agent.py"
+    working: "NA"
+    file: "/app/backend/director_workflow.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
       - working: "NA"
         agent: "main"
-        comment: "Implemented MongoDB schema for profile_sessions collection with fields: session_id, user_id, profile_data (target_customer, product, audience, platform, vibes), confidence_scores, conversation_history, profile_summary, created_at, updated_at. Needs backend testing."
-      - working: true
-        agent: "testing"
-        comment: "MongoDB session schema is working correctly. Sessions are properly created with all required fields: session_id (UUID), user_id, profile_data (with target_customer, product, audience, platform, vibes), confidence_scores, conversation_history, profile_summary, created_at, updated_at. Data persistence works correctly - profile information extracted from conversations is saved and retrievable. Fixed session update issue where profile_data was being overwritten during conversation history updates."
+        comment: "Implemented MongoDB schema for video_projects collection with fields: project_id, user_goal, product_type, target_platform, matched_format, shot_list, uploaded_segments, edited_video_path, current_step, messages, updated_at. Project state persists through workflow. Needs backend testing."
 
 agent_communication:
   - agent: "main"
