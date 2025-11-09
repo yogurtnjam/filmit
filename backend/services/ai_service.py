@@ -106,16 +106,23 @@ You are analyzing a video for content optimization.
 {hashtags_summary}
 
 **YOUR TASK:**
-Analyze this video and provide specific, actionable suggestions to make it more viral on TikTok.
+Act as their personal director and analyze this video with actionable editing guidance.
 
 1. **Recommend the BEST trending format** this content should follow (from the list above)
-2. **Generate specific suggestions** in these categories:
+2. **Generate specific suggestions** focusing on:
+   
+   **PRIORITY: AUTO-CUT DETECTION**
+   - Identify likely pauses, awkward silences, and filler words ("um", "uh", "like", "you know")
+   - Suggest exact timestamps to cut these moments
+   - Mark moments where pacing drags and needs tightening
+   
+   **THEN:**
    - Audio/BGM recommendations (trending background music that matches the content style)
    - Example videos (similar content doing well - with titles, creators, and why they work)
+   - What additional content they should film to improve this video
    - Script rewrites or voice-over improvements
    - Text overlays to add (with exact timing)
    - Shot recommendations (what to re-record or emphasize)
-   - Timestamp cuts/edits (what to trim, cut, or sync - with exact timestamps in seconds)
    - Format structure (how to reorganize content)
 
 **IMPORTANT:** Each suggestion must:
