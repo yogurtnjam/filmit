@@ -116,6 +116,11 @@ export const WorkspaceEnhanced = () => {
         description: 'Ready for AI analysis'
       });
 
+      // Activate workspace
+      if (!isWorkspaceActive) {
+        setIsWorkspaceActive(true);
+      }
+
       // Add system message
       const systemMessage = {
         role: 'system',
