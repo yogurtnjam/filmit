@@ -573,11 +573,11 @@ export const WorkspaceEnhanced = () => {
                   )}
                 </div>
               </CardContent>
-            </Card>
-          )}
+                </Card>
+              )}
 
-          {/* Uploaded Video Display */}
-          {uploadedVideo && (
+              {/* Uploaded Video Display */}
+              {uploadedVideo && (
             <Card className="border-border/50 shadow-xl bg-card/95 backdrop-blur-sm animate-slide-up">
               <CardContent className="pt-6">
                 <div className="flex items-start gap-4">
