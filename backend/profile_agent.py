@@ -172,8 +172,22 @@ async def save_profile_data(
     print(f"DEBUG: Updated profile_data: {profile_data}")
     print(f"DEBUG: Updated fields: {updated_fields}")
     
-    # Recalculate confidence scores
-    scores = await calculate_confidence_score(session_id, db)
+    # Recalculate confidence scores based on updated profile_data
+    scores = {}
+    for field in ["target_customer", "product", "audience", "platform", "vibes"]:
+        value = profile_data.get(field, "")
+        if not value or value.strip() == "":
+            scores[field] = 0
+        elif len(value) < 10:
+            scores[field] = 30  # Too brief
+        elif len(value) < 30:
+            scores[field] = 60  # Moderate detail
+        else:
+            scores[field] = 90  # Good detail
+    
+    # Calculate overall confidence
+    scores["overall"] = sum(scores.values()) / 5 if scores else 0
+    
     session["confidence_scores"] = scores
     print(f"DEBUG: Calculated scores: {scores}")
     
