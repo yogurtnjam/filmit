@@ -38,6 +38,26 @@ class StatusCheck(BaseModel):
 class StatusCheckCreate(BaseModel):
     client_name: str
 
+# Chat Models
+class ChatMessage(BaseModel):
+    session_id: str
+    message: str
+    conversation_history: Optional[List[Dict[str, str]]] = []
+
+class ChatResponse(BaseModel):
+    session_id: str
+    message: str
+    confidence_scores: Optional[Dict[str, float]] = {}
+    summary_status: Optional[str] = None
+    profile_data: Optional[Dict[str, Any]] = {}
+
+class SessionCreate(BaseModel):
+    user_id: Optional[str] = None
+
+class SessionResponse(BaseModel):
+    session_id: str
+    created_at: str
+
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
