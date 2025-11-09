@@ -116,8 +116,18 @@ class DirectorWorkflow:
         Director Agent - Main orchestrator that understands user goals
         and coordinates other agents.
         """
-        messages = state.get("messages", [])
         current_step = state.get("current_step", "initial")
+        
+        # For initial setup, just coordinate - don't call LLM unnecessarily
+        if current_step == "initial":
+            # Just pass through to format matcher
+            return state
+        elif current_step in ["format_matched", "script_planned"]:
+            # Just coordinate the workflow
+            return state
+        
+        # For other steps that need director input, use LLM
+        messages = state.get("messages", [])
         
         # Initialize LLM
         llm = LlmChat(
