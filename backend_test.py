@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Backend Test Suite for ProfileAgent Chat API Endpoints
-Tests the three new endpoints: session creation, message processing, and session retrieval
+Backend Test Suite for Director System with LangGraph Workflow
+Tests the Director endpoints, viral format matching, and LangGraph workflow execution
 """
 
 import requests
@@ -9,11 +9,12 @@ import json
 import uuid
 from datetime import datetime
 import sys
+import time
 
 # Backend URL from frontend/.env
 BACKEND_URL = "https://trend-workspace.preview.emergentagent.com/api"
 
-class ProfileAgentTester:
+class DirectorSystemTester:
     def __init__(self):
         self.session_id = None
         self.conversation_history = []
