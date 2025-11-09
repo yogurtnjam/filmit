@@ -10,10 +10,11 @@ import { useNavigate } from 'react-router-dom';
 
 export const Workspace = () => {
   const navigate = useNavigate();
+  const [sessionId, setSessionId] = useState(null);
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: 'Hey there! 👋 I\'m your AI content strategist. Upload a video or image, tell me what you\'re creating, and I\'ll help you make it go viral.',
+      content: 'Hey there! 👋 I\'m your AI content strategist. Tell me about what you\'re creating - your product, target audience, which platform you\'re using, and the vibe you\'re going for. I\'ll help you understand your content profile!',
       timestamp: new Date()
     }
   ]);
@@ -21,9 +22,40 @@ export const Workspace = () => {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [profileData, setProfileData] = useState({});
+  const [confidenceScores, setConfidenceScores] = useState({});
   const fileInputRef = useRef(null);
   const textareaRef = useRef(null);
   const messagesEndRef = useRef(null);
+  
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+  
+  // Create session on component mount
+  useEffect(() => {
+    const createSession = async () => {
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/chat/session`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ user_id: 'workspace_user' })
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          setSessionId(data.session_id);
+        } else {
+          toast.error('Failed to create session');
+        }
+      } catch (error) {
+        console.error('Error creating session:', error);
+        toast.error('Failed to connect to server');
+      }
+    };
+    
+    createSession();
+  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
