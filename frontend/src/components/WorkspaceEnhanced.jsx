@@ -79,9 +79,9 @@ export const WorkspaceEnhanced = () => {
   };
 
   const quickPrompts = [
-    { icon: <TrendingUp className="w-4 h-4" />, text: 'Show me trending formats', color: 'bg-primary/10 text-primary border-primary/20' },
-    { icon: <Wand2 className="w-4 h-4" />, text: 'Analyze my video for TikTok', color: 'bg-secondary/10 text-secondary border-secondary/20' },
-    { icon: <Zap className="w-4 h-4" />, text: 'What hooks work best right now?', color: 'bg-accent/20 text-foreground border-accent/30' },
+    { icon: <Film className="w-4 h-4" />, text: 'What content should I create?', color: 'bg-primary/10 text-primary border-primary/20' },
+    { icon: <Scissors className="w-4 h-4" />, text: 'Help me edit my footage', color: 'bg-secondary/10 text-secondary border-secondary/20' },
+    { icon: <TrendingUp className="w-4 h-4" />, text: 'What\'s trending right now?', color: 'bg-accent/20 text-foreground border-accent/30' },
   ];
 
   const handleFileSelect = async (e) => {
